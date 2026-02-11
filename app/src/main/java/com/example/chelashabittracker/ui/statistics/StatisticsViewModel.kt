@@ -1,5 +1,7 @@
 package pt.isel.pdm.chatr.ui.statistics
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -13,53 +15,52 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
- * Statistics for a single habit.
+ * Estatísticas de um hábito
  */
 data class HabitStatistics(
     val habit: Habit,
-    val daysCompleted: Int,  // Number of days the goal was fully achieved in the last 7 days
-    val totalCompletions: Int  // Total number of completions in the last 7 days
+    val daysCompleted: Int,  // Númeor de dias em que a meta foi completamente atingida nos últimos 7 dias
+    val totalCompletions: Int  // Número total de vezes que o hábito foi completado nos últimos 7 dias
 )
 
-/**
- * UI state for the statistics screen.
- */
+
 data class StatisticsUiState(
     val statistics: List<HabitStatistics> = emptyList(),
     val isLoading: Boolean = true
 )
 
 /**
- * ViewModel for displaying habit statistics.
+ * ViewModel para display das estatísticas dos hábitos.
  */
 class StatisticsViewModel(
     repository: HabitsRepository
 ) : ViewModel() {
     
     /**
-     * UI state that combines habits and completions to generate statistics.
+     * UI state que combina hábitos com completions para calcular as estatísticas dos hábitos nos últimos 7 dias.
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     val uiState: StateFlow<StatisticsUiState> = combine(
-        repository.habits,
+        repository.habits, //do tipo Flow<List<Habit>>
         repository.completions
-    ) { habits, completions ->
+    ) { habits, completions -> //aqui habits é do tipo List<Habit>
         val today = LocalDate.now()
         val last7Days = (0..6).map { daysAgo ->
             today.minusDays(daysAgo.toLong()).format(DateTimeFormatter.ISO_LOCAL_DATE)
         }
         
         val statistics = habits.map { habit ->
-            // Get completions for this habit in the last 7 days
+            // Get completions para este hábito nos últimos 7 dias
             val habitCompletions = completions.filter { completion ->
                 completion.habitId == habit.id && completion.date in last7Days
             }
             
-            // Count how many days the goal was fully achieved
+            // Contar quantos dias a meta foi completamente atingida
             val daysCompleted = habitCompletions.count { completion ->
                 completion.completedTimes >= habit.timesPerDay
             }
             
-            // Count total completions
+            // Contar o número total de vezes que o hábito foi completado nos últimos 7 dias
             val totalCompletions = habitCompletions.sumOf { it.completedTimes }
             
             HabitStatistics(
@@ -81,7 +82,7 @@ class StatisticsViewModel(
 }
 
 /**
- * Factory for creating StatisticsViewModel instances.
+ * Factory para criar o StatisticsViewModel com dependência do HabitsRepository
  */
 class StatisticsViewModelFactory(
     private val repository: HabitsRepository

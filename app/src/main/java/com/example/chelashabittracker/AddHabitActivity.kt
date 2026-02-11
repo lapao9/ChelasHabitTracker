@@ -17,8 +17,7 @@ import pt.isel.pdm.chatr.ui.addhabit.AddHabitViewModelFactory
 import pt.isel.pdm.chatr.ui.theme.CHaTrTheme
 
 /**
- * Activity for adding a new habit.
- * Launched from HabitsActivity when user clicks the "Add" button.
+ * Activity para adicionar um novo hábito
  */
 class AddHabitActivity : ComponentActivity() {
     

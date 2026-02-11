@@ -15,8 +15,7 @@ import androidx.compose.ui.unit.dp
 import pt.isel.pdm.chatr.domain.Habit
 
 /**
- * Screen for displaying habit statistics.
- * Shows completion data for the last 7 days.
+ * Screen que mostra as estatísticas dos hábitos nos últimos 7 dias.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -190,9 +189,9 @@ private fun StatisticsCard(
             
             Text(
                 text = when {
-                    statistics.daysCompleted == 7 -> "🎉 Excelente! Objetivo cumprido todos os dias!"
-                    statistics.daysCompleted >= 5 -> "👍 Muito bom! Continue assim!"
-                    statistics.daysCompleted >= 3 -> "💪 Bom trabalho! Pode melhorar!"
+                    statistics.daysCompleted == 7 -> "Excelente! Objetivo cumprido todos os dias!"
+                    statistics.daysCompleted >= 5 -> "Muito bom! Continue assim!"
+                    statistics.daysCompleted >= 3 -> "Bom trabalho mas ainda pode melhorar!"
                     else -> "📈 Continue a tentar! Vai conseguir!"
                 },
                 style = MaterialTheme.typography.bodySmall,

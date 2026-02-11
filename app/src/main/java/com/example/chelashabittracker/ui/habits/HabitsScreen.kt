@@ -221,6 +221,7 @@ private fun HabitCard(
                     onClick = {
                         onDeleteHabit()
                         showDeleteDialog = false
+
                     }
                 ) {
                     Text("Eliminar")

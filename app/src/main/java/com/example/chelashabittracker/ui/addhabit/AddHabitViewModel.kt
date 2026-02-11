@@ -12,8 +12,7 @@ import pt.isel.pdm.chatr.domain.Habit
 import java.util.UUID
 
 /**
- * UI state for adding a new habit.
- * Represents the form state and validation.
+ * UI state para o screen de adicionar hábito.
  */
 data class AddHabitUiState(
     val name: String = "",
@@ -26,7 +25,7 @@ data class AddHabitUiState(
 )
 
 /**
- * ViewModel for managing the add habit form.
+ * ViewModel para gerenciar a tela de adicionar hábito.
  */
 class AddHabitViewModel(
     private val repository: HabitsRepository
@@ -36,7 +35,7 @@ class AddHabitViewModel(
     val uiState: StateFlow<AddHabitUiState> = _uiState.asStateFlow()
     
     /**
-     * Updates the habit name in the form.
+     * Atualiza o nome do hábito no formulário.
      */
     fun onNameChange(name: String) {
         _uiState.value = _uiState.value.copy(
@@ -46,14 +45,14 @@ class AddHabitViewModel(
     }
     
     /**
-     * Updates the habit description in the form.
+     * Atualiza a descrição do hábito no formulário.
      */
     fun onDescriptionChange(description: String) {
         _uiState.value = _uiState.value.copy(description = description)
     }
     
     /**
-     * Updates the times per day in the form.
+     * Atualiza o número de vezes por dia do hábito no formulário.
      */
     fun onTimesPerDayChange(timesPerDay: String) {
         _uiState.value = _uiState.value.copy(
@@ -63,24 +62,25 @@ class AddHabitViewModel(
     }
     
     /**
-     * Validates and saves the habit.
-     * Returns true if validation passes, false otherwise.
+     * Valida e guarda o hábito
+     * Returna true se o hábito foi salvo com sucesso
      */
     fun saveHabit() {
         val currentState = _uiState.value
+
+        val nameError =
+            when {
+                currentState.name.isBlank() -> "O nome é obrigatório"
+                else -> null
+            }
         
-        // Validate inputs
-        val nameError = when {
-            currentState.name.isBlank() -> "O nome é obrigatório"
-            else -> null
-        }
-        
-        val timesPerDayError = when {
-            currentState.timesPerDay.isBlank() -> "Número de vezes é obrigatório"
-            currentState.timesPerDay.toIntOrNull() == null -> "Deve ser um número válido"
-            currentState.timesPerDay.toInt() < 1 -> "Deve ser pelo menos 1"
-            else -> null
-        }
+        val timesPerDayError =
+            when {
+                currentState.timesPerDay.isBlank() -> "Número de vezes é obrigatório"
+                currentState.timesPerDay.toIntOrNull() == null -> "Deve ser um número válido"
+                currentState.timesPerDay.toInt() < 1 -> "Deve ser pelo menos 1"
+                else -> null
+            }
         
         if (nameError != null || timesPerDayError != null) {
             _uiState.value = currentState.copy(
@@ -111,7 +111,7 @@ class AddHabitViewModel(
     }
     
     /**
-     * Resets the save success flag.
+     * Reseta a flag de sucesso
      */
     fun resetSaveSuccess() {
         _uiState.value = _uiState.value.copy(saveSuccess = false)

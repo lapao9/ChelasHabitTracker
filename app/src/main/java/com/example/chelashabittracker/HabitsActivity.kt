@@ -1,11 +1,13 @@
 package pt.isel.pdm.chatr
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,8 +20,8 @@ import pt.isel.pdm.chatr.ui.habits.HabitsViewModelFactory
 import pt.isel.pdm.chatr.ui.theme.CHaTrTheme
 
 /**
- * Main Activity - displays the list of habits and allows tracking daily progress.
- * This is the launcher activity of the app.
+ * Main Activity - mostra a lista de hábitos e permite navegar para as telas de adicionar hábito e estatísticas.
+ * Permite também registrar a conclusão de um hábito e remover um hábito existente.
  */
 class HabitsActivity : ComponentActivity() {
     
@@ -28,6 +30,7 @@ class HabitsActivity : ComponentActivity() {
         HabitsViewModelFactory(repository)
     }
     
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

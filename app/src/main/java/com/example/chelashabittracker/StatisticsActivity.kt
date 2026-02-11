@@ -17,8 +17,8 @@ import pt.isel.pdm.chatr.ui.statistics.StatisticsViewModelFactory
 import pt.isel.pdm.chatr.ui.theme.CHaTrTheme
 
 /**
- * Activity for displaying habit statistics.
- * Shows completion data for the last 7 days.
+ * Activity para exibir as estatísticas dos hábitos do usuário.
+ * É iniciada a partir da HabitsActivity quando o usuário clica no ícone de estatísticas.
  */
 class StatisticsActivity : ComponentActivity() {
     

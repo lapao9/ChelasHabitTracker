@@ -3,11 +3,11 @@ package pt.isel.pdm.chatr.domain
 import kotlinx.serialization.Serializable
 
 /**
- * Represents the completion record of a habit for a specific date.
+ * Representa a completion de um hábito num dia específico
  *
- * @property habitId The ID of the habit
- * @property date The date in format "yyyy-MM-dd"
- * @property completedTimes Number of times the habit was completed on this date
+ * @property habitId Identificador do hábito ao qual esta completion se refere
+ * @property date Data da completion no formato "YYYY-MM-DD"
+ * @property completedTimes Número de vezes que o hábito foi completado nesse dia
  */
 @Serializable
 data class HabitCompletion(

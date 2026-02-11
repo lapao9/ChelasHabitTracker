@@ -13,8 +13,8 @@ CHaTr (Chelas Habit Tracker) é uma aplicação Android que permite aos utilizad
 ## Destaques do Projeto
 
 **3 Activities independentes** - Abordagem tradicional do Android com isolamento completo  
-**Jetpack Compose** 
-**DataStore** 
+**Jetpack Compose** - Construção de UI moderna e reativa
+**DataStore** - Armazenamento local moderno e eficiente
 **Kotlin Coroutines** - Operações não-bloqueantes  
 **Material Design 3** - Interface moderna e acessível  
 **Estatísticas visuais** - Progresso semanal com motivação  
@@ -63,7 +63,7 @@ private fun navigateToStatistics() {
 onNavigateBack = ::finish
 ```
 
-## 🎯 Funcionalidades
+## Funcionalidades
 
 ### Ecrã de Hábitos (HabitsActivity)
 - Lista de todos os hábitos definidos
@@ -158,30 +158,30 @@ app/src/main/java/pt/isel/pdm/chatr/
 ### AndroidManifest.xml
 
 ```xml
-<application ...>
-    <!-- Main Activity - Habits List (Launcher) -->
-    <activity
-        android:name=".HabitsActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    
-    <!-- Add Habit Activity -->
-    <activity
-        android:name=".AddHabitActivity"
-        android:parentActivityName=".HabitsActivity" />
-    
-    <!-- Statistics Activity -->
-    <activity
-        android:name=".StatisticsActivity"
-        android:parentActivityName=".HabitsActivity" />
-</application>
+   <application >
+       <!-- Main Activity - Habits List (Launcher) -->
+       <activity
+           android:name=".HabitsActivity"
+           android:exported="true">
+           <intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+               <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
+       </activity>
+       
+       <!-- Add Habit Activity -->
+       <activity
+           android:name=".AddHabitActivity"
+           android:parentActivityName=".HabitsActivity" />
+       
+       <!-- Statistics Activity -->
+       <activity
+           android:name=".StatisticsActivity"
+           android:parentActivityName=".HabitsActivity" />
+   </application>
 ```
 
-## 💻 Exemplos de Código
+## Exemplos de Código
 
 ### Navegação Entre Activities
 

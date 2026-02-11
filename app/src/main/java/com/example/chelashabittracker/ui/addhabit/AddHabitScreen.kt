@@ -12,18 +12,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 /**
- * Screen for adding a new habit.
- * Stateless composable that receives UI state and callbacks.
+ * Screen para adicionar um novo hábito
  */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddHabitScreen(
-    uiState: AddHabitUiState,
-    onNameChange: (String) -> Unit,
-    onDescriptionChange: (String) -> Unit,
-    onTimesPerDayChange: (String) -> Unit,
-    onSaveClick: () -> Unit,
-    onNavigateBack: () -> Unit,
+    uiState: AddHabitUiState, // Estado da UI
+    onNameChange: (String) -> Unit, // nome do hábito alterado
+    onDescriptionChange: (String) -> Unit, // descrição do hábito alterada
+    onTimesPerDayChange: (String) -> Unit, // número de vezes por dia alterado
+    onSaveClick: () -> Unit, // usuário clicou em guardar
+    onNavigateBack: () -> Unit, // usuário quer voltar para a tela anterior
     modifier: Modifier = Modifier
 ) {
     // Navigate back when save is successful
@@ -61,8 +61,6 @@ fun AddHabitScreen(
                 onValueChange = onNameChange,
                 label = { Text("Nome do Hábito") },
                 placeholder = { Text("Ex: Hidratação") },
-                isError = uiState.nameError != null,
-                supportingText = uiState.nameError?.let { { Text(it) } },
                 enabled = !uiState.isSaving,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -74,7 +72,6 @@ fun AddHabitScreen(
                 placeholder = { Text("Ex: Beber 2L de água") },
                 enabled = !uiState.isSaving,
                 minLines = 3,
-                maxLines = 5,
                 modifier = Modifier.fillMaxWidth()
             )
             
@@ -83,10 +80,7 @@ fun AddHabitScreen(
                 onValueChange = onTimesPerDayChange,
                 label = { Text("Vezes por dia") },
                 placeholder = { Text("Ex: 10") },
-                isError = uiState.timesPerDayError != null,
-                supportingText = uiState.timesPerDayError?.let { { Text(it) } },
                 enabled = !uiState.isSaving,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth()
             )
             

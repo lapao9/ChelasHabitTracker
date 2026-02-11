@@ -3,12 +3,12 @@ package pt.isel.pdm.chatr.domain
 import kotlinx.serialization.Serializable
 
 /**
- * Represents a daily habit to be tracked.
+ * Representa um hábito
  *
- * @property id Unique identifier for the habit
- * @property name Name of the habit
- * @property description Detailed description of the habit
- * @property timesPerDay Number of times the habit should be performed per day
+ * @property id Identificador do hábito (único)
+ * @property name Nome do hábito
+ * @property description Descrição do hábito
+ * @property timesPerDay Número de vezes que o hábito deve ser realizado por dia
  */
 @Serializable
 data class Habit(

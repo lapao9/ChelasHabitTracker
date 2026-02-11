@@ -1,5 +1,7 @@
 package pt.isel.pdm.chatr.ui.habits
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -16,8 +18,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
- * UI state for the habits screen.
- * Represents the state of the habits list and their daily progress.
+ * Estado UI para a tela de hábitos
  */
 data class HabitsUiState(
     val habits: List<Habit> = emptyList(),
@@ -26,19 +27,21 @@ data class HabitsUiState(
 )
 
 /**
- * ViewModel for managing the habits list and tracking daily completions.
- * Follows MVVM architecture pattern taught in PDM course.
+ * ViewModel para gerenciar a tela de hábitos
+ * Segue padrão MVVM
  */
 class HabitsViewModel(
     private val repository: HabitsRepository
 ) : ViewModel() {
     
+    @RequiresApi(Build.VERSION_CODES.O) //Android Studio pediu
     private val today = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
     
     /**
-     * UI state exposed as StateFlow for Compose to observe.
-     * Combines habits and today's completions into a single state.
+     * estado UI que combina os hábitos e as conclusões de hoje.
+     * Usa combine para reagir a mudanças em ambos os Flows do repositório
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     val uiState: StateFlow<HabitsUiState> = combine(
         repository.habits,
         repository.completions
@@ -60,9 +63,9 @@ class HabitsViewModel(
     )
     
     /**
-     * Records a completion for the specified habit.
-     * Launches a coroutine in the ViewModel scope.
+     * Regista uma conclusão para o hábito especificado
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun recordCompletion(habitId: String) {
         viewModelScope.launch {
             repository.recordCompletion(habitId, today)
@@ -70,7 +73,7 @@ class HabitsViewModel(
     }
     
     /**
-     * Deletes the specified habit and all its completions.
+     * Remove o hábito especificado do repositório
      */
     fun deleteHabit(habitId: String) {
         viewModelScope.launch {
@@ -80,8 +83,8 @@ class HabitsViewModel(
 }
 
 /**
- * Factory for creating HabitsViewModel instances.
- * Required because ViewModel has constructor parameters.
+ * Factory para criar instâncias de HabitsViewModel
+ * É preciso porque o ViewModel tem parâmetros no construtor
  */
 class HabitsViewModelFactory(
     private val repository: HabitsRepository
@@ -89,7 +92,8 @@ class HabitsViewModelFactory(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HabitsViewModel::class.java)) {
-            return HabitsViewModel(repository) as T
+            //return:
+            HabitsViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
