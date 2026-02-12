@@ -2,6 +2,8 @@
 
 Aplicação Android para monitorização de hábitos diários desenvolvida no âmbito da disciplina de Programação em Dispositivos Móveis (PDM) do ISEL.
 
+## Vídeo de Demostração: 
+
 ## Sobre a Aplicação
 
 CHaTr (Chelas Habit Tracker) é uma aplicação Android que permite aos utilizadores:
@@ -108,7 +110,7 @@ onNavigateBack = ::finish
 - **State Hoisting** - Separação entre estado e UI
 
 #### Persistência de Dados
-- **DataStore (Preferences)** - Armazenamento persistente de dados
+- **DataStore** - Armazenamento persistente de dados
 - **Kotlinx Serialization** - Serialização/deserialização JSON
 
 #### Concorrência
@@ -149,7 +151,7 @@ app/src/main/java/pt/isel/pdm/chatr/
 ```
 
 **Nota sobre a arquitetura**: Cada Activity é responsável por:
-1. Inicializar o seu ViewModel (usando `viewModels()` delegate)
+1. Inicializar o seu ViewModel (usando `viewModels()`)
 2. Configurar o Compose UI com o tema
 3. Passar callbacks de navegação para o Composable
 4. Gerir a navegação através de Intents explícitos
@@ -251,7 +253,7 @@ class AddHabitActivity : ComponentActivity() {
 
 ```
 ┌─────────────────────────┐
-│   HabitsActivity        │ 🏠 Launcher Activity
+│   HabitsActivity        │ Launcher Activity
 │   (Lista de hábitos)    │
 └─────────────────────────┘
           │
@@ -272,7 +274,7 @@ class AddHabitActivity : ComponentActivity() {
 
 ## Decisões Técnicas
 
-### Por que DataStore?
+### Porquê DataStore?
 
 1. **Adequação ao Caso de Uso**: 
    - Dados estruturados simples (lista de hábitos e registos)
@@ -280,18 +282,14 @@ class AddHabitActivity : ComponentActivity() {
    - Tamanho de dados relativamente pequeno
 
 2. **Simplicidade**:
-   - API simples e intuitiva
-   - Menos overhead comparado com bases de dados relacionais
-   - Não requer configuração de servidor (vs Firestore)
+   - Simples e intuitivo
+   - Mais fácil de implementar comparado com bases de dados relacionais
+   - Não requer configuração de servidor (contrariamente a Firestore)
 
 3. **Performance**:
    - Acesso rápido aos dados
    - Operações assíncronas com Coroutines
    - Suporte nativo a Flow para observação reativa
-
-4. **Matéria Lecionada**:
-   - Ensinado na Semana 9 da disciplina
-   - Integração direta com StateFlow e ViewModel
 
 ### Alternativas Consideradas e Rejeitadas
 
