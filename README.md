@@ -295,10 +295,8 @@ class AddHabitActivity : ComponentActivity() {
 
 | Solução | Vantagens | Desvantagens | Adequação para CHaTr |
 |---------|-----------|--------------|----------------------|
-| **DataStore** ✅ | • Simples<br>• Flow-based<br>• Tipo-safe<br>• Assíncrono | • Não suporta queries complexas | ⭐⭐⭐⭐⭐ **ESCOLHIDO** |
-| **Room** | • Queries SQL<br>• Relações entre tabelas<br>• Migrations | • Demasiado complexo<br>• Overkill para dados simples | ⭐⭐ Excessivo |
-| **Firestore** | • Cloud sync<br>• Real-time updates<br>• Escalável | • Requer internet<br>• Setup Firebase<br>• Dados não locais | ⭐ Desnecessário |
-| **SharedPreferences** | • Muito simples<br>• Bem conhecido | • API antiga<br>• Não tipo-safe<br>• Síncrono (blocking) | ⭐⭐ Obsoleto |
+| **DataStore** ✅ | • Simples<br> • Assíncrono | • Não suporta queries complexas |**ESCOLHIDO** |
+| **Firestore** | • Cloud sync<br>• Real-time updates<br>• Escalável | • Requer internet<br>• Setup Firebase<br>• Dados não locais | Desnecessário |
 
 **Conclusão**: DataStore é a escolha perfeita para este caso de uso - simples o suficiente para não adicionar complexidade desnecessária, mas robusto e moderno o suficiente para um projeto profissional.
 
@@ -348,7 +346,7 @@ class AddHabitActivity : ComponentActivity() {
                  └────────────────┘
                           │
                           ↓
-                    📁 Ficheiro local
+                    Ficheiro local
              (chatr_prefs.preferences_pb)
 ```
 
@@ -383,10 +381,6 @@ data class HabitCompletion(
 **Curso**: Engenharia Informática, Redes e Telecomunicações
 
 **Instituição**: Instituto Superior de Engenharia de Lisboa (ISEL)
-
-##  emonstração
-
-Link para o vídeo de demonstração: METER LINK DPS
 
 ## Informações do Trabalho
 
