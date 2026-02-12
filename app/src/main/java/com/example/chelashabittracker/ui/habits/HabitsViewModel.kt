@@ -91,10 +91,10 @@ class HabitsViewModelFactory(
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HabitsViewModel::class.java)) {
-            //return:
-            HabitsViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+        return when {
+            modelClass.isAssignableFrom(HabitsViewModel::class.java) -> {
+                HabitsViewModel(repository) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+        }    }
 }

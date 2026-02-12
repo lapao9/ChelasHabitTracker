@@ -5,13 +5,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.isel.pdm.chatr.domain.Habit
@@ -33,11 +35,24 @@ fun HabitsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("CHaTr - Meus Hábitos") },
+                title = {
+                    Column {
+                        Text(
+                            text = "CHaTr",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Chelas Habit Tracker",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                },
                 actions = {
                     IconButton(onClick = onStatisticsClick) {
                         Icon(
-                            imageVector = Icons.Default.BarChart,
+                            imageVector = Icons.Default.Person,
                             contentDescription = "Ver estatísticas"
                         )
                     }
@@ -45,11 +60,23 @@ fun HabitsScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddHabitClick) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Adicionar hábito"
-                )
+            if(!uiState.habits.isEmpty()){
+                FloatingActionButton(
+                    onClick = onAddHabitClick,
+                    containerColor = MaterialTheme.colorScheme.primary,   // Cor de destaque
+                    contentColor = MaterialTheme.colorScheme.onPrimary,   // Ícone visível
+                    elevation = FloatingActionButtonDefaults.elevation(
+                        defaultElevation = 8.dp,
+                        pressedElevation = 12.dp
+                    ),
+                    modifier = Modifier.size(72.dp) // Maior, mais visível
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Adicionar hábito",
+                        modifier = Modifier.size(36.dp) // Ícone maior
+                    )
+                }
             }
         },
         modifier = modifier
@@ -90,19 +117,43 @@ private fun EmptyHabitsContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(16.dp),
+        modifier = modifier
+            .padding(32.dp)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "Ainda não tens hábitos definidos",
-            style = MaterialTheme.typography.titleLarge
+        Icon(
+            imageVector = Icons.Default.Info,
+            contentDescription = null,
+            modifier = Modifier.size(64.dp),
+            tint = MaterialTheme.colorScheme.primary
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Nenhum hábito ainda",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Text(
-            text = "Carrega no botão + para criar o teu primeiro hábito",
-            style = MaterialTheme.typography.bodyMedium
+            text = "Cria o teu primeiro hábito e começa a acompanhar o teu progresso diário.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(onClick = onAddHabitClick) {
+            Icon(Icons.Default.Add, contentDescription = null)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Criar hábito")
+        }
     }
 }
 
@@ -139,7 +190,7 @@ private fun HabitCard(
     modifier: Modifier = Modifier
 ) {
     var showDeleteDialog by remember { mutableStateOf(false) }
-    
+
     Card(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -173,9 +224,9 @@ private fun HabitCard(
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.height(12.dp))
-            
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -191,7 +242,7 @@ private fun HabitCard(
                         MaterialTheme.colorScheme.onSurface
                     }
                 )
-                
+
                 Button(
                     onClick = onRecordCompletion,
                     enabled = completedTimes < habit.timesPerDay
@@ -201,7 +252,7 @@ private fun HabitCard(
                     )
                 }
             }
-            
+
             LinearProgressIndicator(
                 progress = { (completedTimes.toFloat() / habit.timesPerDay.toFloat()).coerceIn(0f, 1f) },
                 modifier = Modifier
@@ -210,7 +261,7 @@ private fun HabitCard(
             )
         }
     }
-    
+
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
