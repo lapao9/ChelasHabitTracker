@@ -1,200 +1,197 @@
 # CHaTr - Chelas Habit Tracker
 
-Aplicação Android para monitorização de hábitos diários desenvolvida no âmbito da disciplina de Programação em Dispositivos Móveis (PDM) do ISEL.
+Android application for daily habit tracking, developed for the Mobile Device Programming (PDM) course at ISEL.
 
-## Vídeo de Demostração: 
-[AQUI](https://drive.google.com/file/d/1W6QuBm6nNHAQo5ZHXAXTI5yCMPo3rQxK/view?usp=sharing)
+## Demo Video
 
-## Sobre a Aplicação
+[HERE](https://drive.google.com/file/d/1W6QuBm6nNHAQo5ZHXAXTI5yCMPo3rQxK/view?usp=sharing)
 
-CHaTr (Chelas Habit Tracker) é uma aplicação Android que permite aos utilizadores:
+## About the App
 
-- **Definir hábitos diários** - Criar hábitos com nome, descrição e número de vezes que devem ser realizados por dia
-- **Registar realizações** - Acompanhar o progresso diário de cada hábito
-- **Visualizar estatísticas** - Consultar informação sobre o cumprimento dos hábitos nos últimos 7 dias
+CHaTr (Chelas Habit Tracker) is an Android application that allows users to:
 
-## Destaques do Projeto
+- **Define daily habits** – Create habits with a name, description, and a target number of completions per day
+- **Log completions** – Track the daily progress of each habit
+- **View statistics** – Check habit completion data for the last 7 days
 
-**3 Activities independentes** - Abordagem tradicional do Android com isolamento completo  
-**Jetpack Compose** - Construção de UI moderna e reativa
-**DataStore** - Armazenamento local moderno e eficiente
-**Kotlin Coroutines** - Operações não-bloqueantes  
-**Material Design 3** - Interface moderna e acessível  
-**Estatísticas visuais** - Progresso semanal com motivação  
+## Project Highlights
 
-### Exemplos de Uso
+**3 independent Activities** – Traditional Android approach with full isolation
+**Jetpack Compose** – Modern and reactive UI construction
+**DataStore** – Modern and efficient local storage
+**Kotlin Coroutines** – Non-blocking operations
+**Material Design 3** – Modern and accessible interface
+**Visual statistics** – Weekly progress with motivational feedback
 
-- **Hidratação**: "Beber 2L de Água" - 10 vezes por dia (10 copos de 20cl)
-- **Caminhada**: "Caminhada em Ritmo Acelerado" - 1 vez por dia
-- **Leitura**: "Ler 30 minutos" - 2 vezes por dia
+### Usage Examples
 
+- **Hydration**: "Drink 2L of Water" – 10 times per day (10 glasses of 20cl)
+- **Walking**: "Brisk Walking" – 1 time per day
+- **Reading**: "Read 30 minutes" – 2 times per day
 
-### Estrutura de Activities
+---
 
-Esta versão implementa a abordagem **tradicional do Android** com:
+## Architecture
 
-1. **HabitsActivity** - Activity principal (main/launcher)
-   - Lista de hábitos
-   - Registo de completudes
-   - Navegação para outras activities
+### Activity Structure
 
-2. **AddHabitActivity** - Activity para adicionar hábito
-   - Formulário de criação
-   - Validação de inputs
+This version implements the **traditional Android approach** with:
 
-3. **StatisticsActivity** - Activity para estatísticas
-   - Visualização dos últimos 7 dias
+1. **HabitsActivity** – Main activity (main/launcher)
 
-### Navegação entre Activities
+   - List of habits
+   - Completion logging
+   - Navigation to other activities
+2. **AddHabitActivity** – Add habit activity
 
-A navegação é feita através de **Intents explícitos**:
+   - Creation form
+   - Input validation
+3. **StatisticsActivity** – Statistics activity
+
+   - Visual overview of the last 7 days
+
+### Navigation Between Activities
+
+Navigation is done using **explicit Intents**:
 
 ```kotlin
-// De HabitsActivity para AddHabitActivity
+// From HabitsActivity to AddHabitActivity
 private fun navigateToAddHabit() {
     val intent = Intent(this, AddHabitActivity::class.java)
     startActivity(intent)
 }
 
-// De HabitsActivity para StatisticsActivity
+// From HabitsActivity to StatisticsActivity
 private fun navigateToStatistics() {
     val intent = Intent(this, StatisticsActivity::class.java)
     startActivity(intent)
 }
 
-// Voltar atrás (nas activities filhas)
+// Go back (in child activities)
 onNavigateBack = ::finish
 ```
 
-## Funcionalidades
+---
 
-### Ecrã de Hábitos (HabitsActivity)
-- Lista de todos os hábitos definidos
-- Visualização do progresso diário (completado/objetivo)
-- Botão para registar a realização de um hábito
-- Opção para eliminar hábitos
-- Indicador visual de progresso com barra de progressão
-- Botão para adicionar novos hábitos
-- Navegação para estatísticas
+## Features
 
-### Ecrã de Adicionar Hábito (AddHabitActivity)
-- Formulário para criar novos hábitos
-- Validação de campos obrigatórios
-- Campos: nome, descrição (opcional) e o número de vezes por dia
-- Botão "voltar" 
+### Habits Screen (HabitsActivity)
 
-### Ecrã de Estatísticas (StatisticsActivity)
-- Informação dos últimos 7 dias para cada hábito
-- Número de dias em que o objetivo foi totalmente cumprido
-- Total de registos realizados
-- Mensagens baseadas no desempenho
-- Indicador visual de progresso semanal
-- Botão "voltar"
+- List of all defined habits
+- Daily progress visualization (completed / target)
+- Button to log a habit completion
+- Option to delete habits
+- Visual progress bar indicator
+- Button to add new habits
+- Navigation to statistics
 
-## Arquitetura e Tecnologias
+### Add Habit Screen (AddHabitActivity)
 
-### Arquitetura MVVM (Model-View-ViewModel)
-- **Model**: Camada de dados com `Habit` e `HabitCompletion`
-- **View**: UI implementada em Jetpack Compose (em cada Activity)
-- **ViewModel**: Gestão de estado e lógica de negócio (um por Activity)
+- Form to create new habits
+- Required field validation
+- Fields: name, description (optional), and times per day
+- Back button
 
-### Tecnologias Utilizadas
+### Statistics Screen (StatisticsActivity)
+
+- Data from the last 7 days for each habit
+- Number of days the goal was fully met
+- Total number of completions logged
+- Performance-based motivational messages
+- Visual weekly progress indicator
+- Back button
+
+---
+
+## Architecture & Technologies
+
+### MVVM Architecture (Model-View-ViewModel)
+
+- **Model**: Data layer with `Habit` and `HabitCompletion`
+- **View**: UI implemented in Jetpack Compose (per Activity)
+- **ViewModel**: State management and business logic (one per Activity)
+
+### Technologies Used
 
 #### UI
-- **Jetpack Compose** - Framework declarativo para construção de UI
-- **Material Design 3** - Sistema de design moderno
-- **Multiple Activities** - Uma Activity por ecrã
 
-#### Gestão de Estado
-- **StateFlow** - Fluxos de estado reativo
-- **ViewModel** - Preservação de estado durante mudanças de configuração
-- **State Hoisting** - Separação entre estado e UI
+- **Jetpack Compose** – Declarative UI framework
+- **Material Design 3** – Modern design system
+- **Multiple Activities** – One Activity per screen
 
-#### Persistência de Dados
-- **DataStore** - Armazenamento persistente de dados
-- **Kotlinx Serialization** - Serialização/deserialização JSON
+#### State Management
 
-#### Concorrência
-- **Kotlin Coroutines** - Operações assíncronas
-- **ViewModelScope** - Gestão do ciclo de vida de coroutines
+- **StateFlow** – Reactive state flows
+- **ViewModel** – State preservation across configuration changes
+- **State Hoisting** – Separation between state and UI
 
-#### Navegação
-- **Explicit Intents** - Navegação entre Activities
-- **finish()** - Voltar para a Activity anterior
+#### Data Persistence
 
-### Estrutura do Projeto
+- **DataStore** – Persistent data storage
+- **Kotlinx Serialization** – JSON serialization/deserialization
+
+#### Concurrency
+
+- **Kotlin Coroutines** – Asynchronous operations
+- **ViewModelScope** – Coroutine lifecycle management
+
+#### Navigation
+
+- **Explicit Intents** – Navigation between activities
+- **finish()** – Return to the previous activity
+
+---
+
+## Project Structure
 
 ```
 app/src/main/java/pt/isel/pdm/chatr/
-├── HabitsActivity.kt            # Activity principal (launcher) - Lista de hábitos
-├── AddHabitActivity.kt          # Activity para adicionar novos hábitos
-├── StatisticsActivity.kt        # Activity para visualizar estatísticas
+├── HabitsActivity.kt            # Main activity (launcher) – Habits list
+├── AddHabitActivity.kt          # Activity for adding new habits
+├── StatisticsActivity.kt        # Activity for viewing statistics
 ├── CHaTrApplication.kt          # Application class (Service Locator)
 ├── data/
-│   └── HabitsRepository.kt      # Repository para acesso aos dados (DataStore)
+│   └── HabitsRepository.kt      # Repository for data access (DataStore)
 ├── domain/
-│   ├── Habit.kt                 # Modelo de dados: Hábito
-│   └── HabitCompletion.kt       # Modelo de dados: Registo de conclusão
+│   ├── Habit.kt                 # Data model: Habit
+│   └── HabitCompletion.kt       # Data model: Completion record
 └── ui/
     ├── habits/
-    │   ├── HabitsScreen.kt      # Composable do ecrã de hábitos
-    │   └── HabitsViewModel.kt   # ViewModel da lista de hábitos
+    │   ├── HabitsScreen.kt      # Habits screen composable
+    │   └── HabitsViewModel.kt   # Habits list ViewModel
     ├── addhabit/
-    │   ├── AddHabitScreen.kt    # Composable do ecrã de adicionar
-    │   └── AddHabitViewModel.kt # ViewModel do formulário
+    │   ├── AddHabitScreen.kt    # Add habit screen composable
+    │   └── AddHabitViewModel.kt # Add habit form ViewModel
     ├── statistics/
-    │   ├── StatisticsScreen.kt      # Composable do ecrã de estatísticas
-    │   └── StatisticsViewModel.kt   # ViewModel das estatísticas
+    │   ├── StatisticsScreen.kt      # Statistics screen composable
+    │   └── StatisticsViewModel.kt   # Statistics ViewModel
     └── theme/
-        ├── Color.kt             # Definição de cores Material 3
-        ├── Theme.kt             # Configuração do tema
-        └── Type.kt              # Definição de tipografia
+        ├── Color.kt             # Material 3 color definitions
+        ├── Theme.kt             # Theme configuration
+        └── Type.kt              # Typography definitions
 ```
 
-**Nota sobre a arquitetura**: Cada Activity é responsável por:
-1. Inicializar o seu ViewModel (usando `viewModels()`)
-2. Configurar o Compose UI com o tema
-3. Passar callbacks de navegação para o Composable
-4. Gerir a navegação através de Intents explícitos
+> **Architecture note**: Each Activity is responsible for:
+>
+> 1. Initializing its own ViewModel (using `viewModels()`)
+> 2. Setting up the Compose UI with the app theme
+> 3. Passing navigation callbacks to the Composable
+> 4. Managing navigation through explicit Intents
 
+---
 
-### AndroidManifest.xml
+## Code Examples
 
-```xml
-   <application >
-       <!-- Main Activity - Habits List (Launcher) -->
-       <activity
-           android:name=".HabitsActivity"
-           android:exported="true">
-           <intent-filter>
-               <action android:name="android.intent.action.MAIN" />
-               <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
-       </activity>
-       
-       <!-- Add Habit Activity -->
-       <activity
-           android:name=".AddHabitActivity"
-           android:parentActivityName=".HabitsActivity" />
-       
-       <!-- Statistics Activity -->
-       <activity
-           android:name=".StatisticsActivity"
-           android:parentActivityName=".HabitsActivity" />
-   </application>
-```
+### Navigation Between Activities
 
-## Exemplos de Código
+**HabitsActivity.kt** – Main activity with navigation:
 
-### Navegação Entre Activities
-
-**HabitsActivity.kt** - Activity principal com navegação:
 ```kotlin
 class HabitsActivity : ComponentActivity() {
     private val viewModel: HabitsViewModel by viewModels {
         HabitsViewModelFactory((application as CHaTrApplication).habitsRepository)
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -202,21 +199,20 @@ class HabitsActivity : ComponentActivity() {
                 val uiState by viewModel.uiState.collectAsState()
                 HabitsScreen(
                     uiState = uiState,
-                    onAddHabitClick = ::navigateToAddHabit,      // <-- Callback de navegação
-                    onStatisticsClick = ::navigateToStatistics,  // <-- Callback de navegação
+                    onAddHabitClick = ::navigateToAddHabit,      // Navigation callback
+                    onStatisticsClick = ::navigateToStatistics,  // Navigation callback
                     onRecordCompletion = viewModel::recordCompletion,
                     onDeleteHabit = viewModel::deleteHabit
                 )
             }
         }
     }
-    
-    // Navegação explícita com Intents
+
     private fun navigateToAddHabit() {
         val intent = Intent(this, AddHabitActivity::class.java)
         startActivity(intent)
     }
-    
+
     private fun navigateToStatistics() {
         val intent = Intent(this, StatisticsActivity::class.java)
         startActivity(intent)
@@ -224,13 +220,14 @@ class HabitsActivity : ComponentActivity() {
 }
 ```
 
-**AddHabitActivity.kt** - Activity com navegação de retorno:
+**AddHabitActivity.kt** – Activity with back navigation:
+
 ```kotlin
 class AddHabitActivity : ComponentActivity() {
     private val viewModel: AddHabitViewModel by viewModels {
         AddHabitViewModelFactory((application as CHaTrApplication).habitsRepository)
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -242,7 +239,7 @@ class AddHabitActivity : ComponentActivity() {
                     onDescriptionChange = viewModel::onDescriptionChange,
                     onTimesPerDayChange = viewModel::onTimesPerDayChange,
                     onSaveClick = viewModel::saveHabit,
-                    onNavigateBack = ::finish  // <-- Fecha a Activity e volta atrás
+                    onNavigateBack = ::finish  // Closes the activity and goes back
                 )
             }
         }
@@ -250,12 +247,12 @@ class AddHabitActivity : ComponentActivity() {
 }
 ```
 
-### Fluxo de Navegação
+### Navigation Flow
 
 ```
 ┌─────────────────────────┐
 │   HabitsActivity        │ Launcher Activity
-│   (Lista de hábitos)    │
+│   (Habits List)         │
 └─────────────────────────┘
           │
           ├──────────────────────────────────┐
@@ -263,47 +260,80 @@ class AddHabitActivity : ComponentActivity() {
           ↓                                  ↓
 ┌─────────────────────────┐    ┌─────────────────────────┐
 │  AddHabitActivity       │    │  StatisticsActivity     │
-│  (Adicionar hábito)     │    │  (Ver estatísticas)     │
+│  (Add Habit)            │    │  (View Statistics)      │
 └─────────────────────────┘    └─────────────────────────┘
           │                                  │
           │ finish()                         │ finish()
           ↓                                  ↓
 ┌─────────────────────────┐
-│   HabitsActivity        │ ← Volta automaticamente
+│   HabitsActivity        │ ← Returns automatically
 └─────────────────────────┘
 ```
 
-## Decisões Técnicas
+---
 
-### Porquê DataStore?
+## AndroidManifest.xml
 
-1. **Adequação ao Caso de Uso**: 
-   - Dados estruturados simples (lista de hábitos e registos)
-   - Não requer queries complexas
-   - Tamanho de dados relativamente pequeno
+```xml
+<application>
+    <!-- Main Activity – Habits List (Launcher) -->
+    <activity
+        android:name=".HabitsActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
-2. **Simplicidade**:
-   - Simples e intuitivo
-   - Mais fácil de implementar comparado com bases de dados relacionais
-   - Não requer configuração de servidor (contrariamente a Firestore)
+    <!-- Add Habit Activity -->
+    <activity
+        android:name=".AddHabitActivity"
+        android:parentActivityName=".HabitsActivity" />
 
+    <!-- Statistics Activity -->
+    <activity
+        android:name=".StatisticsActivity"
+        android:parentActivityName=".HabitsActivity" />
+</application>
+```
+
+---
+
+## Technical Decisions
+
+### Why DataStore?
+
+1. **Fit for the Use Case**:
+
+   - Simple structured data (list of habits and completion records)
+   - No need for complex queries
+   - Relatively small data size
+2. **Simplicity**:
+
+   - Straightforward and intuitive to use
+   - Easier to implement compared to relational databases
+   - No server setup required (unlike Firestore)
 3. **Performance**:
-   - Acesso rápido aos dados
-   - Operações assíncronas com Coroutines
-   - Suporte nativo a Flow para observação reativa
 
-### Alternativas Consideradas e Rejeitadas
+   - Fast data access
+   - Asynchronous operations with Coroutines
+   - Native Flow support for reactive observation
 
-| Solução | Vantagens | Desvantagens | Adequação para CHaTr |
-|---------|-----------|--------------|----------------------|
-| **DataStore** ✅ | • Simples<br> • Assíncrono | • Não suporta queries complexas |**ESCOLHIDO** |
-| **Firestore** | • Cloud sync<br>• Real-time updates<br>• Escalável | • Requer internet<br>• Setup Firebase<br>• Dados não locais | Desnecessário |
+### Alternatives Considered and Rejected
 
-**Conclusão**: DataStore é a escolha perfeita para este caso de uso - simples o suficiente para não adicionar complexidade desnecessária, mas robusto e moderno o suficiente para um projeto profissional.
+| Solution               | Advantages                              | Disadvantages                                     | Fit for CHaTr    |
+| ---------------------- | --------------------------------------- | ------------------------------------------------- | ---------------- |
+| **DataStore** ✅ | Simple, Asynchronous                    | No complex query support                          | **CHOSEN** |
+| **Firestore**    | Cloud sync, Real-time updates, Scalable | Requires internet, Firebase setup, Non-local data | Unnecessary      |
 
-## 📊 Arquitetura de Dados
+**Conclusion**: DataStore is the perfect fit for this use case – simple enough to avoid unnecessary complexity, yet robust and modern enough for a professional project.
 
-### Fluxo de Dados na Aplicação
+---
+
+## Data Architecture
+
+### Application Data Flow
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -312,84 +342,85 @@ class AddHabitActivity : ComponentActivity() {
 │  ┌───────────────────────────────────────────────────┐  │
 │  │          habitsRepository: HabitsRepository       │  │
 │  └───────────────────────────────────────────────────┘  │
-└───────────────────────────┬─────────────────────────────┘
-                            │ Fornece Repository
-        ┌───────────────────┼───────────────────┐
-        │                   │                   │
-        ↓                   ↓                   ↓
-┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-│   Habits     │   │   AddHabit   │   │  Statistics  │
-│  Activity    │   │   Activity   │   │   Activity   │
-└──────┬───────┘   └──────┬───────┘   └──────┬───────┘
-       │                  │                  │
-       │ cria             │ cria             │ cria
-       ↓                  ↓                  ↓
-┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-│   Habits     │   │   AddHabit   │   │  Statistics  │
-│  ViewModel   │   │  ViewModel   │   │  ViewModel   │
-└──────┬───────┘   └──────┬───────┘   └──────┬───────┘
-       │                  │                  │
-       │ usa              │ usa              │ usa
-       ↓                  ↓                  ↓
-       └──────────────────┴──────────────────┘
-                          │
-                          ↓
-                 ┌────────────────┐
-                 │    Habits      │
-                 │   Repository   │
-                 └────────┬───────┘
-                          │
-                          │ lê/escreve
-                          ↓
-                 ┌────────────────┐
-                 │   DataStore    │
-                 │  (Preferences) │
-                 └────────────────┘
-                          │
-                          ↓
-                    Ficheiro local
-             (chatr_prefs.preferences_pb)
+└───────────────────────┬─────────────────────────────────┘
+                        │ Provides Repository
+        ┌───────────────┼───────────────────┐
+        │               │                   │
+        ↓               ↓                   ↓
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│   Habits     │ │   AddHabit   │ │  Statistics  │
+│  Activity    │ │   Activity   │ │   Activity   │
+└──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+       │                │                │
+       │ creates        │ creates        │ creates
+       ↓                ↓                ↓
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│   Habits     │ │   AddHabit   │ │  Statistics  │
+│  ViewModel   │ │  ViewModel   │ │  ViewModel   │
+└──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+       │                │                │
+       │ uses           │ uses           │ uses
+       └────────────────┴────────────────┘
+                        │
+                        ↓
+               ┌────────────────┐
+               │    Habits      │
+               │   Repository   │
+               └────────┬───────┘
+                        │
+                        │ reads/writes
+                        ↓
+               ┌────────────────┐
+               │   DataStore    │
+               │  (Preferences) │
+               └────────────────┘
+                        │
+                        ↓
+                  Local file
+         (chatr_prefs.preferences_pb)
 ```
 
-### Modelos de Dados
+### Data Models
 
-**Habit** - Representa um hábito a ser acompanhado:
+**Habit** – Represents a habit to be tracked:
+
 ```kotlin
 @Serializable
 data class Habit(
-    val id: String,              // UUID único
-    val name: String,            // Ex: "Hidratação"
-    val description: String,     // Ex: "Beber 2L de água"
-    val timesPerDay: Int         // Ex: 10 (vezes por dia)
+    val id: String,              // Unique UUID
+    val name: String,            // e.g. "Hydration"
+    val description: String,     // e.g. "Drink 2L of water"
+    val timesPerDay: Int         // e.g. 10 (times per day)
 )
 ```
 
-**HabitCompletion** - Registo de conclusão de um hábito:
+**HabitCompletion** – Completion record for a habit:
+
 ```kotlin
 @Serializable
 data class HabitCompletion(
-    val habitId: String,         // Referência ao hábito
+    val habitId: String,         // Reference to the habit
     val date: String,            // "2026-02-10" (ISO format)
-    val completedTimes: Int      // Quantas vezes foi realizado neste dia
+    val completedTimes: Int      // How many times it was done on this day
 )
 ```
-## Autor
-
-**Nome**: João Lapão
-
-**Número**: A51542
-
-**Curso**: Engenharia Informática, Redes e Telecomunicações
-
-**Instituição**: Instituto Superior de Engenharia de Lisboa (ISEL)
-
-## Informações do Trabalho
-
-- **Disciplina**: Programação em Dispositivos Móveis (PDM)
-- **Ano Letivo**: 2025/2026
-- **Semestre**: Inverno
-- **Data de Entrega**: Fevereiro de 2026
 
 ---
 
-**ISEL - Instituto Superior de Engenharia de Lisboa**
+## Author
+
+**Name**: João Lapão
+**Student Number**: A51542
+**Degree**: Computer Engineering, Networks and Telecommunications
+**Institution**: Instituto Superior de Engenharia de Lisboa (ISEL)
+
+## Assignment Info
+
+- **Course**: Mobile Device Programming (PDM)
+- **Academic Year**: 2025/2026
+- **Semester**: Winter
+- **Submission Date**: February 2026
+
+---
+
+**ISEL – Instituto Superior de Engenharia de Lisboa**
